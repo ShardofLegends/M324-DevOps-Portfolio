@@ -10,6 +10,9 @@
   let newTasks = new Array(lists.length).fill('');
   let showPopup = false;
   let newSectionName = '';
+  let showOptions = false;
+  let optionsIndex = -1;
+  let showEditDeletePopup = false; // New state variable
 
   function addTask(listIndex) {
     const newTask = newTasks[listIndex].trim();
@@ -39,36 +42,33 @@
   function closePopup() {
     showPopup = false;
     newSectionName = '';
+    showEditDeletePopup = false; // Close edit/delete popup on cancel
   }
 
-  onMount(() => {
-    // Add event listener to close popup on Escape key press
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        closePopup();
-      }
-    });
-  });
-
-  let editingIndex = -1;
-
   function editSection(index) {
-    editingIndex = index;
     newSectionName = lists[index].name;
-    showPopup = true;
+    optionsIndex = index;
+    showOptions = false; // Hide options after clicking on edit
+    showEditDeletePopup = true; // Show the edit/delete popup
   }
 
   function deleteSection(index) {
     lists.splice(index, 1);
+    showOptions = false; // Hide options after clicking on delete
   }
 
   function confirmEdit() {
     if (newSectionName.trim()) {
-      lists[editingIndex].name = newSectionName;
-      editingIndex = -1;
+      lists[optionsIndex].name = newSectionName;
       newSectionName = '';
       showPopup = false;
+      showEditDeletePopup = false; // Hide edit/delete popup after confirming edit
     }
+  }
+
+  function showOptionsPopup(index) {
+    showOptions = !showOptions;
+    optionsIndex = index;
   }
 
   let updateFlag = 0;
@@ -82,14 +82,19 @@
 </script>
 
 <main id="todo-app">
-  <h1>SvelteKit Todo App</h1>
+  <h1>To Do List</h1>
   {#each lists as list, listIndex (list.name)}
     <div class="todo-list">
       <div class="list-header">
         <h2>{list.name}</h2>
         <div class="list-options">
-          <button class="edit-button" on:click={() => editSection(listIndex)}>Edit</button>
-          <button class="delete-button" on:click={() => deleteSection(listIndex)}>Delete</button>
+          <button class="options-button" on:click={() => showOptionsPopup(listIndex)}>...</button>
+          {#if showOptions && optionsIndex === listIndex}
+            <div class="options-popup">
+              <button class="edit-option" on:click={() => editSection(listIndex)}>Edit</button>
+              <button class="delete-option" on:click={() => deleteSection(listIndex)}>Delete</button>
+            </div>
+          {/if}
         </div>
       </div>
       <div class="add-task">
@@ -107,6 +112,16 @@
     </div>
   {/each}
 
+  {#if showEditDeletePopup}
+    <div class="popup">
+      <div class="popup-content">
+        <input id="section-name-input" bind:value={newSectionName} placeholder="Enter section name" />
+        <button on:click={confirmEdit}>Save Changes</button>
+        <button on:click={closePopup}>Cancel</button>
+      </div>
+    </div>
+  {/if}
+
   <div class="sticky-button" on:click={addSection}>
     +
   </div>
@@ -115,7 +130,7 @@
     <div class="popup">
       <div class="popup-content">
         <input id="section-name-input" bind:value={newSectionName} placeholder="Enter section name" />
-        <button on:click={editingIndex === -1 ? confirmSection : confirmEdit}>{editingIndex === -1 ? 'Confirm' : 'Save Changes'}</button>
+        <button on:click={confirmSection}>Confirm</button>
         <button on:click={closePopup}>Cancel</button>
       </div>
     </div>
@@ -127,6 +142,12 @@
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
+  }
+  #todo-app {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
   }
   h1 {
     color: #333;
@@ -203,7 +224,7 @@
 
   .list-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
   }
 
@@ -213,8 +234,8 @@
   }
 
   /* Add styles for edit and delete buttons */
-  .edit-button {
-    background-color: #17a2b8;
+  .options-button {
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
@@ -222,12 +243,23 @@
     cursor: pointer;
   }
 
-  .delete-button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
+  .options-popup {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .edit-option, .delete-option {
+    padding: 8px;
     cursor: pointer;
+  }
+
+  .edit-option:hover, .delete-option:hover {
+    background-color: #f0f0f0;
   }
 </style>
