@@ -90,10 +90,12 @@
         <div class="list-options">
           <button class="options-button" on:click={() => showOptionsPopup(listIndex)}>...</button>
           {#if showOptions && optionsIndex === listIndex}
-            <div class="options-popup">
+          <div class="popup">
+            <div class="popup-content">
               <button class="edit-option" on:click={() => editSection(listIndex)}>Edit</button>
               <button class="delete-option" on:click={() => deleteSection(listIndex)}>Delete</button>
             </div>
+          </div>
           {/if}
         </div>
       </div>
@@ -243,23 +245,20 @@
     cursor: pointer;
   }
 
-  .options-popup {
-    position: absolute;
-    top: 30px;
-    right: 0;
-    background: white;
-    border: 1px solid #ccc;
+  .edit-option {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
     border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .edit-option, .delete-option {
-    padding: 8px;
+    padding: 5px 10px;
     cursor: pointer;
   }
-
-  .edit-option:hover, .delete-option:hover {
-    background-color: #f0f0f0;
+  .delete-option {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
   }
 </style>
