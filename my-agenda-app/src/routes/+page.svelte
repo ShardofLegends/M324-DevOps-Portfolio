@@ -70,9 +70,14 @@ function confirmEdit() {
     showPopup = false;
   }
 }
-function removeSection(index) {
+let updateFlag = 0;
+
+  function removeSection(index) {
     lists = lists.filter((_, i) => i !== index);
+    updateFlag += 1;
   }
+
+  $: lists = [...lists];
 </script>
 
 <main>
