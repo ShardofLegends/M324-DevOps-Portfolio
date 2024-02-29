@@ -52,25 +52,26 @@
 
   let editingIndex = -1;
 
-function editSection(index) {
-  editingIndex = index;
-  newSectionName = lists[index].name;
-  showPopup = true;
-}
-
-function deleteSection(index) {
-  lists.splice(index, 1);
-}
-
-function confirmEdit() {
-  if (newSectionName.trim()) {
-    lists[editingIndex].name = newSectionName;
-    editingIndex = -1;
-    newSectionName = '';
-    showPopup = false;
+  function editSection(index) {
+    editingIndex = index;
+    newSectionName = lists[index].name;
+    showPopup = true;
   }
-}
-let updateFlag = 0;
+
+  function deleteSection(index) {
+    lists.splice(index, 1);
+  }
+
+  function confirmEdit() {
+    if (newSectionName.trim()) {
+      lists[editingIndex].name = newSectionName;
+      editingIndex = -1;
+      newSectionName = '';
+      showPopup = false;
+    }
+  }
+
+  let updateFlag = 0;
 
   function removeSection(index) {
     lists = lists.filter((_, i) => i !== index);
@@ -80,15 +81,15 @@ let updateFlag = 0;
   $: lists = [...lists];
 </script>
 
-<main>
+<main id="todo-app">
   <h1>SvelteKit Todo App</h1>
   {#each lists as list, listIndex (list.name)}
     <div class="todo-list">
       <div class="list-header">
         <h2>{list.name}</h2>
         <div class="list-options">
-          <button on:click={() => editSection(listIndex)}>Edit</button>
-          <button on:click={() => deleteSection(listIndex)}>Delete</button>
+          <button class="edit-button" on:click={() => editSection(listIndex)}>Edit</button>
+          <button class="delete-button" on:click={() => deleteSection(listIndex)}>Delete</button>
         </div>
       </div>
       <div class="add-task">
@@ -113,7 +114,7 @@ let updateFlag = 0;
   {#if showPopup}
     <div class="popup">
       <div class="popup-content">
-        <input bind:value={newSectionName} placeholder="Enter section name" />
+        <input id="section-name-input" bind:value={newSectionName} placeholder="Enter section name" />
         <button on:click={editingIndex === -1 ? confirmSection : confirmEdit}>{editingIndex === -1 ? 'Confirm' : 'Save Changes'}</button>
         <button on:click={closePopup}>Cancel</button>
       </div>
@@ -196,9 +197,10 @@ let updateFlag = 0;
   .popup-content {
     background: white;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     text-align: center;
   }
+
   .list-header {
     display: flex;
     justify-content: space-between;
@@ -207,10 +209,25 @@ let updateFlag = 0;
 
   .list-options button {
     margin-left: 10px;
-    background-color: #007bff;
+    cursor: pointer;
+  }
+
+  /* Add styles for edit and delete buttons */
+  .edit-button {
+    background-color: #17a2b8;
     color: white;
     border: none;
     border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  .delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
     cursor: pointer;
   }
 </style>
