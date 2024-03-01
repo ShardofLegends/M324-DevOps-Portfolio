@@ -82,37 +82,41 @@
 </script>
 
 <main id="todo-app">
-  <h1>To Do List</h1>
-  {#each lists as list, listIndex (list.name)}
-    <div class="todo-list">
-      <div class="list-header">
-        <h2>{list.name}</h2>
-        <div class="list-options">
-          <button class="options-button" on:click={() => showOptionsPopup(listIndex)}>...</button>
-          {#if showOptions && optionsIndex === listIndex}
-          <div class="popup">
-            <div class="popup-content">
-              <button id="edit-option" on:click={() => editSection(listIndex)}>Edit</button>
-              <button id="delete-option" on:click={() => deleteSection(listIndex)}>Delete</button>
+  <h1 style="display: flex;">To Do List</h1>
+
+    {#each lists as list, listIndex (list.name)}
+    <div class="Section-Box" style="display: flex;">
+      <div class="todo-list">
+        <div class="list-header">
+          <h2>{list.name}</h2>
+          <div class="list-options">
+            <button class="options-button" on:click={() => showOptionsPopup(listIndex)}>...</button>
+            {#if showOptions && optionsIndex === listIndex}
+            <div class="popup">
+              <div class="popup-content">
+                <button id="edit-option" on:click={() => editSection(listIndex)}>Edit</button>
+                <button id="delete-option" on:click={() => deleteSection(listIndex)}>Delete</button>
+              </div>
             </div>
+            {/if}
           </div>
-          {/if}
         </div>
+        <div class="add-task">
+          <input class="task-input" bind:value={newTasks[listIndex]} placeholder="Add a new task" on:keydown={(event) => event.key === 'Enter' && addTask(listIndex)} />
+          <button class="add-button" on:click={() => addTask(listIndex)}>Add</button>
+        </div>
+        <ul class="task-list">
+          {#each list.tasks as task, taskIndex (task)}
+            <li class="task-item">
+              {task}
+              <button id="remove-button" on:click={() => removeTask(listIndex, taskIndex)}>Remove</button>
+            </li>
+          {/each}
+        </ul>
       </div>
-      <div class="add-task">
-        <input class="task-input" bind:value={newTasks[listIndex]} placeholder="Add a new task" on:keydown={(event) => event.key === 'Enter' && addTask(listIndex)} />
-        <button class="add-button" on:click={() => addTask(listIndex)}>Add</button>
-      </div>
-      <ul class="task-list">
-        {#each list.tasks as task, taskIndex (task)}
-          <li class="task-item">
-            {task}
-            <button id="remove-button" on:click={() => removeTask(listIndex, taskIndex)}>Remove</button>
-          </li>
-        {/each}
-      </ul>
-    </div>
-  {/each}
+    </div> 
+    {/each}
+
 
   {#if showEditDeletePopup}
     <div class="popup">
@@ -181,6 +185,10 @@
     }
   }
   main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
@@ -434,4 +442,16 @@ input:focus {
 .section-name-button {
   margin-right: 20px;
 }
+.Section-Box {
+    width: 120%;
+    height: 120%;
+    background-color: rgba(255, 255, 255, 1);
+    color: #000;
+    border-radius: 10px;
+    box-shadow: 6px 9px 30px 6px rgba(142,178,229,1);
+    margin-bottom: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
