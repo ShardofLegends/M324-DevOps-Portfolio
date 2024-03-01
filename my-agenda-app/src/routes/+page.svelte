@@ -124,9 +124,9 @@
     </div>
   {/if}
 
-  <div class="sticky-button" on:click={addSection}>
+  <button class="sticky-button" on:click={addSection}>
     +
-  </div>
+  </button>
 
   {#if showPopup}
     <div class="popup">
@@ -165,6 +165,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+  /*
   .add-button {
     padding: 5px 10px;
     background-color: #007bff;
@@ -173,6 +174,7 @@
     border-radius: 5px;
     cursor: pointer;
   }
+  */
   .task-list {
     list-style-type: none;
     padding: 0;
@@ -186,6 +188,7 @@
     border-radius: 5px;
     margin-bottom: 10px;
   }
+  /*
   .remove-button {
     background-color: #dc3545;
     color: white;
@@ -193,17 +196,21 @@
     border-radius: 5px;
     cursor: pointer;
   }
+   */
   .sticky-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background-color: #007bff;
     color: white;
-    border: none;
-    border-radius: 50%;
-    padding: 10px;
+    height: 50px;
+  width: 50px;
+  border-radius: 50%;
+    padding: 1rem;
     cursor: pointer;
+    font-size: 20px;
   }
+ 
 
   .popup {
     position: fixed;
@@ -230,12 +237,14 @@
     align-items: center;
   }
 
+  /* 
+
   .list-options button {
     margin-left: 10px;
     cursor: pointer;
   }
 
-  /* Add styles for edit and delete buttons */
+  
   .options-button {
     background-color: #007bff;
     color: white;
@@ -261,4 +270,40 @@
     padding: 5px 10px;
     cursor: pointer;
   }
+  */
+  button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: #007ACC;
+  outline: 3px #007ACC solid;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+}
+
+button {
+  color: white;
+  font-weight: 700;
+  font-size: 1em;
+  transition: 400ms;
+}
+
+button svg path {
+  transition: 400ms;
+}
+
+button:hover {
+  background-color: transparent;
+  color: #007ACC;
+}
+
+
+button:hover svg path {
+  fill: #007ACC;
+}
 </style>
