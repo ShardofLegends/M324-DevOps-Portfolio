@@ -92,8 +92,8 @@
           {#if showOptions && optionsIndex === listIndex}
           <div class="popup">
             <div class="popup-content">
-              <button class="edit-option" on:click={() => editSection(listIndex)}>Edit</button>
-              <button class="delete-option" on:click={() => deleteSection(listIndex)}>Delete</button>
+              <button id="edit-option" on:click={() => editSection(listIndex)}>Edit</button>
+              <button id="delete-option" on:click={() => deleteSection(listIndex)}>Delete</button>
             </div>
           </div>
           {/if}
@@ -132,14 +132,54 @@
     <div class="popup">
       <div class="popup-content">
         <input id="section-name-input" bind:value={newSectionName} placeholder="Enter section name" />
-        <button on:click={confirmSection}>Confirm</button>
-        <button on:click={closePopup}>Cancel</button>
+        <button class="section-name-button" on:click={confirmSection}>Confirm</button>
+        <button class="section-name-button" on:click={closePopup}>Cancel</button>
       </div>
     </div>
   {/if}
 </main>
 
 <style>
+
+@media screen and (max-width: 768px) {
+    #todo-app {
+      margin: 10%;
+    }
+
+    main {
+      margin: 10px;
+    }
+
+    .todo-list {
+      margin-bottom: 20px;
+    }
+
+    .add-task {
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .task-input {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+
+    .task-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    #remove-button {
+      margin-top: 10px;
+    }
+
+    .sticky-button {
+      bottom: 10px;
+      right: 10px;
+    }
+  }
   main {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -159,11 +199,15 @@
   }
   .add-task {
     margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .task-input {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-right: 10px;
   }
   
   .add-button {
@@ -245,6 +289,9 @@
   }
 
   .popup-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -257,7 +304,7 @@
     align-items: center;
   }
 
-  /* 
+  
 
   .list-options button {
     margin-left: 10px;
@@ -265,32 +312,67 @@
   }
 
   
-  .options-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
+
+
+  
+
+  #edit-option {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: #17a2b8;
+  outline: 3px #17a2b8;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+  color: white;
+  font-weight: 700;
+  font-size: 1em;
+  transition: 400ms;
   }
 
-  .edit-option {
-    background-color: #17a2b8;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
+  #edit-option svg path {
+  transition: 400ms;
+}
+
+#edit-option:hover {
+  background-color: transparent;
+  color: #17a2b8;
+}
+  
+
+  #delete-option {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: #dc3545;
+  outline: 3px #dc3545;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+  color: white;
+  font-weight: 700;
+  font-size: 1em;
+  transition: 400ms;
   }
-  .delete-option {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  */
+
+  #delete-option svg path {
+  transition: 400ms;
+}
+
+#delete-option:hover {
+  background-color: transparent;
+  color: #dc3545
+}
+  
   button {
   display: flex;
   justify-content: center;
@@ -343,5 +425,13 @@ input:focus {
   border: 2px solid #4A9DEC;
   box-shadow: 0px 0px 0px 7px rgb(74, 157, 236, 20%);
   background-color: white;
+}
+
+#section-name-input {
+  margin-right: 10px;
+}
+
+.section-name-button {
+  margin-right: 10px;
 }
 </style>
