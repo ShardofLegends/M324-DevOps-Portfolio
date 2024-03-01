@@ -118,8 +118,8 @@
     <div class="popup">
       <div class="popup-content">
         <input id="section-name-input" bind:value={newSectionName} placeholder="Enter section name" />
-        <button on:click={confirmEdit}>Save Changes</button>
-        <button on:click={closePopup}>Cancel</button>
+        <button class="section-name-button" on:click={confirmEdit}>Save Changes</button>
+        <button class="section-name-button" on:click={closePopup}>Cancel</button>
       </div>
     </div>
   {/if}
@@ -428,10 +428,10 @@ input:focus {
 }
 
 #section-name-input {
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 .section-name-button {
-  margin-right: 10px;
+  margin-right: 20px;
 }
 </style>
