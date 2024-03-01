@@ -107,7 +107,7 @@
         {#each list.tasks as task, taskIndex (task)}
           <li class="task-item">
             {task}
-            <button class="remove-button" on:click={() => removeTask(listIndex, taskIndex)}>Remove</button>
+            <button id="remove-button" on:click={() => removeTask(listIndex, taskIndex)}>Remove</button>
           </li>
         {/each}
       </ul>
@@ -165,7 +165,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
-  /*
+  
   .add-button {
     padding: 5px 10px;
     background-color: #007bff;
@@ -174,7 +174,7 @@
     border-radius: 5px;
     cursor: pointer;
   }
-  */
+  
   .task-list {
     list-style-type: none;
     padding: 0;
@@ -188,15 +188,35 @@
     border-radius: 5px;
     margin-bottom: 10px;
   }
-  /*
-  .remove-button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  
+  #remove-button {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: red;
+  outline: 3px red;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+  color: white;
+  font-weight: 700;
+  font-size: 1em;
+  transition: 400ms;
   }
-   */
+
+  #remove-button svg path {
+  transition: 400ms;
+}
+
+#remove-button:hover {
+  background-color: transparent;
+  color: red
+}
+   
   .sticky-button {
     position: fixed;
     bottom: 20px;
