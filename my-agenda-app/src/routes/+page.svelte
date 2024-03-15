@@ -175,10 +175,6 @@
       align-items: flex-start;
     }
 
-    #remove-button {
-      margin-top: 10px;
-    }
-
     .sticky-button {
       bottom: 10px;
       right: 10px;
@@ -240,35 +236,8 @@
     border-radius: 5px;
     margin-bottom: 10px;
   }
-  
-  #remove-button {
-    display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 15px;
-  gap: 15px;
-  background-color: red;
-  outline: 3px red;
-  outline-offset: -3px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  transition: 400ms;
-  color: white;
-  font-weight: 700;
-  font-size: 1em;
-  transition: 400ms;
-  }
 
-  #remove-button svg path {
-  transition: 400ms;
-}
 
-#remove-button:hover {
-  background-color: transparent;
-  color: red
-}
-   
   .sticky-button {
     position: fixed;
     bottom: 20px;
@@ -336,16 +305,13 @@
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  transition: 400ms;
+
   color: white;
   font-weight: 700;
   font-size: 1em;
-  transition: 400ms;
+
   }
 
-  #edit-option svg path {
-  transition: 400ms;
-}
 
 #edit-option:hover {
   background-color: transparent;
@@ -365,16 +331,12 @@
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  transition: 400ms;
+
   color: white;
   font-weight: 700;
   font-size: 1em;
-  transition: 400ms;
-  }
 
-  #delete-option svg path {
-  transition: 400ms;
-}
+  }
 
 #delete-option:hover {
   background-color: transparent;
@@ -393,29 +355,16 @@
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  transition: 400ms;
+
 }
 
 button {
   color: white;
   font-weight: 700;
   font-size: 1em;
-  transition: 400ms;
+
 }
 
-button svg path {
-  transition: 400ms;
-}
-
-button:hover {
-  background-color: transparent;
-  color: #007ACC;
-}
-
-
-button:hover svg path {
-  fill: #007ACC;
-}
 input {
   border: 2px solid transparent;
   width: 15em;
